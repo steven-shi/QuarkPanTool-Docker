@@ -5,7 +5,6 @@ services:
     build: .
     container_name: quarkpantool
     working_dir: /app
-    command: python quark.py
     stdin_open: true  # keep STDIN open for interactive menu
     tty: true        # allocate a TTY for better interactive UX
     environment:
@@ -15,6 +14,7 @@ services:
       - ./share:/app/share
       - ./downloads:/app/downloads
       - ./url.txt:/app/url.txt
-    restart: unless-stopped
+    # Remove restart policy for interactive use
+    # restart: unless-stopped
 
 

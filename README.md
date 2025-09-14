@@ -66,8 +66,21 @@ touch url.txt  # 用于批量任务的分享地址清单（每行一个）
 
 ### 3. 启动（交互式菜单）
 
+**方法一：使用 docker compose run（推荐）**
 ```bash
-docker compose up
+docker compose run --rm app
+```
+
+**方法二：使用 docker compose up（需要附加到容器）**
+```bash
+# 启动容器
+docker compose up -d
+
+# 附加到容器进行交互
+docker compose exec app python quark.py
+
+# 停止容器
+docker compose down
 ```
 
 容器会挂载以下目录，数据将持久化到宿主机：
