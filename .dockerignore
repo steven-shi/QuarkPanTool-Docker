@@ -1,0 +1,25 @@
+.git
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+*.log
+
+# Local runtime data we don't need in the image
+web_browser_data/
+.web_browser_data/
+downloads/
+share/
+images/
+
+# Local configs and secrets (will be mounted as volumes)
+config/cookies.txt
+config/config.json
+

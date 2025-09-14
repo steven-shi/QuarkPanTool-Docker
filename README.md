@@ -41,6 +41,44 @@ python quark.py
 
 运行后会使用playwright进行登录操作，当然也可以自己手动获取cookie填写到config/cookies.txt文件中。更多说明请浏览 [wiki](https://github.com/ihmily/QuarkPanTool/wiki) 页面
 
+## 使用 Docker 运行
+
+本项目支持使用 Docker 与 Docker Compose 运行，适用于无需在本机安装浏览器与依赖的场景。
+
+重要说明：容器内无法弹出图形化浏览器进行登录，首次使用请自行在浏览器获取并填写 Cookie 到 `config/cookies.txt` 后再运行容器。Cookie 格式支持：
+
+- 直接粘贴为一行 Cookie 字符串：`key1=value1; key2=value2; ...`
+- 或粘贴从浏览器导出的 cookie 列表（JSON 列表，程序会自动转换）
+
+### 1. 构建镜像
+
+```bash
+docker compose build
+```
+
+### 2. 准备配置与数据目录（宿主机）
+
+```bash
+mkdir -p config share downloads
+# 将你的 Cookie 写入到宿主机的 config/cookies.txt 文件中
+touch url.txt  # 用于批量任务的分享地址清单（每行一个）
+```
+
+### 3. 启动（交互式菜单）
+
+```bash
+docker compose up
+```
+
+容器会挂载以下目录，数据将持久化到宿主机：
+
+- `./config` ↔ `/app/config`
+- `./share` ↔ `/app/share`
+- `./downloads` ↔ `/app/downloads`
+- `./url.txt` ↔ `/app/url.txt`
+
+提示：如果 `config/cookies.txt` 为空，程序会尝试在容器内启动浏览器登录，这在无图形环境下不可用，请务必先填好 Cookie。
+
 ## 注意事项
 
 - 首次运行会比较缓慢，请注意底部任务栏，程序会自动打开一个浏览器，让你登录夸克网盘，登录完成后，请不要手动关闭浏览器，回到软件界面按Enter键，浏览器会自动关闭并保存你的登录信息，下次运行就不需要登录了。（如果是Linux环境，请自行在网页获取Cookie后填入config/cookies.txt文件使用）
